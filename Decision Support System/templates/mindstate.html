@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="static/brain.png">
+    <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="static/mindstate.css">  <!--{{url_for('static',filename='mindstate.css')}}-->
+    <title>Decision Support System</title>
+</head>
+<body>
+    <div id="header"> 
+       <button id="sidebar-button" onclick="slide()"><img src="{{url_for('static', filename='sidebar.png')}}" height="20px" width="20px" align="middle" /></button>
+       <h3 style="margin-left:30%; margin-top:0.6%;color:white;">Decision Support System for Detecting Mental State</h3>
+       <p id="user">Hello {{user}}</p>
+    </div>
+      <div id="sidebar" >
+        <p> <a id="close" onclick="inside()">&times;<a></p>
+        <ul id="menu">
+            <div id="liout"><img src="{{url_for('static', filename='report.png')}}" height="30px" width="30px" >&nbsp;&nbsp;&nbsp;&nbsp;<li><a href={{ url_for('report') }}>Generate Report</a></li></div>
+            <div id="liout"><img src="{{url_for('static', filename='data.png')}}" height="30px" width="30px"style="display:{{visibility}}">&nbsp;&nbsp;&nbsp;&nbsp;<li style="display:{{visibility}}"><a href={{ url_for('patientdata') }}>Patient Data</a></li></div>
+            <div id="liout"><img src="{{url_for('static', filename='user.png')}}" height="30px" width="30px"style="display:{{visibility}}">&nbsp;&nbsp;&nbsp;&nbsp;<li style="display:{{visibility}}"><a href={{ url_for('manageuser') }}>Manage User</a></li></div>
+            <div id="liout"><img src="{{url_for('static', filename='logout.png')}}" height="30px" width="30px">&nbsp;&nbsp;&nbsp;&nbsp;<li><a href={{ url_for('logout') }}>Logout</a></li></div>
+            
+        </ul>
+     </div>
+     
+    <div id="inputfield">
+      <form action="/predict" method="post"><!--url_for('/predict') -->
+        <table border="1" id="inputtable">
+        <tr>
+          <th>Age</th>
+          <td><input type="range" min="15" max="60" id="range1" oninput="this.form.Age.value=this.value" class="slider"></td>
+          <td><input type="text" name='Age' id="Age" min="15" value="{{age}}"></td>
+        </tr>
+        <tr>
+          <th>Low Alpha</th>
+          <td><input type="range" min="0" max="30"  step="0.01" oninput="this.form.LowAlpha.value=this.value" class="slider"></td>
+          <td><input type="text" name='LowAlpha' id="LowAlpha" min=0 value="{{lowalpha}}"></td>
+        </tr>
+        <tr>
+          <th>High Alpha</th>
+          <td><input type="range" min="0" max="30"  step="0.01" oninput="this.form.HighAlpha.value=this.value" class="slider"></td>
+          <td><input type="text" name='HighAlpha' id="HighAlpha" min=0 value="{{highalpha}}"></td>
+        </tr>
+        <tr>
+          <th>Low Beta</th>
+          <td><input type="range" min="0" max="100" step="0.01" oninput="this.form.LowBeta.value=this.value" class="slider"></td>
+          <td><input type="text" name='LowBeta'  id="LowBeta" min=0 value="{{lowbeta}}"></td>
+        </tr>
+        <tr>
+          <th>High Beta</th>
+          <td><input type="range" min="0" max="100" step="0.01" oninput="this.form.HighBeta.value=this.value" class="slider"></td>
+          <td><input type="text" name='HighBeta' id="HighBeta" min=0 value="{{highbeta}}"></td>
+        </tr>
+        <tr>
+          <th>Low Gamma</th>
+          <td><input type="range" min="0" max="200" step="0.01" oninput="this.form.LowGamma.value=this.value" class="slider"></td>
+          <td><input type="text" name='LowGamma' id="LowGamma" min=0 value="{{lowgamma}}"></td>
+        </tr>
+        <tr>
+          <th>High Gamma</th>
+          <td><input type="range" min="0" max="200" step="0.01" oninput="this.form.HighGamma.value=this.value" class="slider"></td>
+          <td><input type="text" name='HighGamma' id="HighGamma" min=0 value="{{highgamma}}"></td>
+        </tr>
+        <tr >
+          <th ><button id="analyze" >Analyze</button></th>
+          <td><b>Mind State<b></td>
+          <td ><b id="predicted result" style="color:{{color}};">{{pred}}</b></td>
+        </tr>
+        <tr style="display:{{see}};">
+          <th>Decision</th>
+          <td colspan="2" id="des"><b>{{des}}</b></td>
+        </tr>
+        <tr>
+          <td colspan="3" id='chart' class='chart' style="display:{{see}};"></td>
+        </tr>
+      </table>
+    </form>
+    </div>
+   
+</body>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+<script type="text/javascript" src="{{url_for('static',filename='script/mindstate1.js')}}"></script>
+<script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+<script type='text/javascript'>
+  var graphs = {{grapJSON | safe}};
+  Plotly.plot('chart',graphs,{});
+</script>
+
+</html>

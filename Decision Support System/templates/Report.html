@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="static/brain.png">
+    <link rel="stylesheet" type="text/css" href="static/report.css">  <!--{{url_for('static',filename='mindstate.css')}}-->
+    <title>Report</title>
+</head>
+<body style="overflow:{{visibility}}">
+    <div id="head">
+        <h3 id="htext">Report</h3>
+    </div>
+<div id="info">
+    {{info}}
+    <form action="/report" method="post">
+     <table id="rt">
+        <tr>
+            <th>Name</th>
+            <td colspan="2"><input type="text" id="name" placeholder="Enter Patients Name" name="name" value="{{n}}"></td>
+        </tr>
+        <tr>
+            <!--<input type="text" id="gen" list="gen" name="gen"value="{{ge}}">-->
+           <th>Gender</th>
+           <td colspan="2"><select id="gen" name="gen">
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+           </td>
+        </tr>
+        <tr>
+            <th>Age</th>
+            <td><input type="range" min="15" max="60" id="range1" oninput="this.form.age.value=this.value" class="slider"></td>
+            <td><input type="text" id="age"  name="age" value="{{a}}"></td>
+        </tr>
+        <tr>
+            <th>Low Alpha</th>
+            <td><input type="range" min="0" max="30"  step="0.01" oninput="this.form.la.value=this.value" class="slider"></td>
+            <td><input type="text" id="la"  name="la" value="{{la}}"></td>
+        </tr>
+        <tr>
+            <th>High Alpha</th>
+            <td><input type="range" min="0" max="30"  step="0.01" oninput="this.form.ha.value=this.value" class="slider"></td>
+            <td><input type="text" id="ha"  name="ha" value="{{ha}}"></td>
+        </tr>
+        <tr>
+            <th>Low Beta</th>
+            <td><input type="range" min="0" max="100" step="0.01" oninput="this.form.lb.value=this.value" class="slider"></td>
+            <td><input type="text" id="lb"  name="lb" value="{{lb}}"></td>
+        </tr>
+        <tr>
+            <th>High Beta</th>
+            <td><input type="range" min="0" max="100" step="0.01" oninput="this.form.hb.value=this.value" class="slider"></td>
+            <td><input type="text" id="hb"  name="hb" value="{{hb}}"></td>
+        </tr>
+        <tr>
+            <th>Low Gamma</th>
+            <td><input type="range" min="0" max="200" step="0.01" oninput="this.form.lg.value=this.value" class="slider"></td>
+            <td><input type="text" id="lg"  name="lg" value="{{lg}}"></td>
+        </tr>
+        <tr>
+            <th>High Gamma</th>
+            <td><input type="range" min="0" max="200" step="0.01" oninput="this.form.hg.value=this.value" class="slider"></td>
+            <td><input type="text" id="hg"  name="hg" value="{{hg}}"></td>
+        </tr>
+        <tr>
+            <th>Mind State</th>
+            <td colspan="2">
+                <select id="ms" name="ms">
+                    <option value="Neutral">Neutral</option>
+                    <option value="Positive">Positive</option>
+                    <option value="Anxiety">Anxiety</option>
+                    <option value="Depressed">Depressed</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th>Refferer</th>
+            <td colspan="2"><input type="text" id="rf" placeholder="Refferer" name="rf" value="{{rf}}"></td>
+        </tr>
+        <tr>
+            <th>Final Comment</th>
+            <td colspan="2"><textarea id="cmmnt" placeholder="Final Comment About Mentalstate" name="cmt" >{{cmt}}</textarea><br></td>
+        </tr>
+        <tr>
+            <th colspan="3"><button id="str" onclick="emptyfield()">Submit</button></th>
+        </tr>
+     </table>
+    </form><br>
+    
+</div>
+
+<br>
+<div id="outer" style="visibility:{{visibility}}">
+    
+<div id="report">
+    <h1 id="report-heading">XYZ Hospital Ltd.</h1>
+    <div id="pinfo"> 
+        &nbsp;&nbsp;<b>Pt.Name:</b>  {{n}}&nbsp;&nbsp;&nbsp;&nbsp;<b>Gender:</b>  {{ge}}&nbsp;&nbsp;&nbsp;&nbsp;<b>Age:</b>  {{a}}<br><br>
+        &nbsp;&nbsp;<b>Reffered By:</b>  {{rf}}
+    </div><br><br>
+    <b id="eeginfo">EEG Info</b>
+     <p id="eeginfo">State: Awake</p>
+     <p id="eeginfo">Frequency:</p>
+     <table border="1" id="findings">
+        <tr>
+            <th>Freq</th>
+            <th>Obtained</th>
+            <th>Normal Freq.</th>
+        </tr>
+        <tr>
+            <th>Alpha</th>
+            <td>{{la}}-{{ha}}</td>
+            <td>8-12</td>
+        </tr>
+        
+        <tr>
+            <th>Beta</th>
+            <td>{{lb}}-{{hb}}</td>
+            <td>13-30</td>
+        </tr>
+        
+        <tr>
+            <th>Gamma</th>
+            <td>{{lg}}-{{hg}}</td>
+            <td>30-60</td>
+        </tr>
+     </table>
+     <p id="eeginfo">Emotional State: <b>{{ms}}</b><p>
+     <p id="eeginfo">Decision: <b>{{cmt}}</b><p>
+</div>
+<div id="icon">
+    <p onclick="printing()"><img src="{{url_for('static', filename='print.png')}}" id="print"></p>
+</div>
+</div>
+</body>
+<script type="text/javascript" src="{{url_for('static',filename='script/report.js')}}"></script>
+<script>
+    function printing(){
+        var bkup=document.body.innerHTML;
+        var content=document.getElementById("report").innerHTML;
+        document.body.innerHTML=content;
+       window.print();
+       document.body.innerHTML=bkup
+    }
+</script>
+</html>

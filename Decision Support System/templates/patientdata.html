@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="static/brain.png">
+    <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="static/patientdata.css">  <!--{{url_for('static',filename='mindstate.css')}}-->
+    <title>Patient Data</title>
+</head>
+<body>
+    <div id="header">
+        <h3 id="htext">Patient Data</h3>
+    </div>
+<button id="download" onclick="ExportToExcel('xlsx')">Download Data</button>
+<table  id="pinfo">
+ 
+    <tr>
+       <th>PID</th>
+       <th>PNAME</th>
+       <th>GENDER</th>
+       <th>AGE</th>
+       <th>LOW ALPHA</th>
+       <th>HIGH ALPHA</th>
+       <th>LOW BETA</th>
+       <th>HIGH BETA</th>
+       <th>LOW GAMMA</th>
+       <th>HIGH GAMMA</th>
+       <th>REFERRER</th>
+       <th>MINDSTATE</th>
+    </tr>
+   {% for i in info %}
+    <tr>
+         <td>{{i.pid}}</td>
+         <td>{{i.pname}}</td>
+         <td>{{i.gender}}</td>
+         <td>{{i.Age}}</td>
+         <td>{{i.la}}</td>
+         <td>{{i.ha}}</td>
+         <td>{{i.lb}}</td>
+         <td>{{i.hb}}</td>
+         <td>{{i.lg}}</td>
+         <td>{{i.hg}}</td>
+         <td>{{i.ref}}</td>
+         <td>{{i.state}}</td>
+    </tr>
+    {% endfor %}
+</table>
+</body>
+<script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+<script type="text/javascript" src="{{url_for('static',filename='script/patientdata.js')}}"></script>
+
+</html>

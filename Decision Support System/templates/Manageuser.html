@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="static/brain.png">
+    <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="static/manageuser.css">  <!--{{url_for('static',filename='mindstate.css')}}-->
+    <title>Manage User</title>
+</head>
+<body>
+    <div id="head">
+        <h3 id="htext">Manage User</h3>
+    </div>
+    <br>
+    <button id="createbtn" onclick="show()">Create User</button>
+   <table id="uinfo">
+    <tr>
+        <th>User ID</th>
+        <th>User Name</th>
+        <th>Email</th>
+        <th></th>
+    <tr>
+    {% for i in dt %}
+    <tr>
+        <td>{{i.uid}}</td>
+        <td>{{i.uname}}</td>
+        <td>{{i.email}}</td>
+        <td><a href="/delete/{{i.uid}}"><button id="dltbtn">Delete</button></a></td>
+    </tr>
+    {% endfor %}
+   </table>
+   <div id="pform">
+   <div id="tba"> <h3 id="ftext">Create User</h3><button id="close" onclick="cancel()">X</button></div>
+    <form action="/manageuser" method="post">
+    <i class="fa fa-user icon"></i>&nbsp;&nbsp;<input type="text" id="username" name="username" placeholder="username"><br><br>
+            <i class="fa fa-envelope icon"></i>&nbsp;&nbsp;<input type="email" id="email" name="email" placeholder="email"><br><br>
+            <i class="fa fa-key icon"></i>&nbsp;<input type="password" id="password" name="password" placeholder="password"><br><br>
+            <button id="logbtn">Create User</button>
+    </form>
+    <p style="text-align:center;">{{m}}</p>
+   </div>
+   
+</body>
+<script type="text/javascript" src="{{url_for('static',filename='script/manageuser.js')}}"></script>
+</html>
