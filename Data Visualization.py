@@ -158,15 +158,8 @@ e = le.fit_transform(e)
 
 e
 
-'''df.MindState[df.MindState == 'Neutral'] = 1
-df.MindState[df.MindState == 'Positive'] = 2
-df.MindState[df.MindState == 'Depressed'] = 3
-df.MindState[df.MindState == 'Anxiety'] = 4'''
-
 X1 = df.drop('MindState', axis=1)
 Y1=np.array(e)
-#Y1 = df.iloc[:, -1]
-#Y1=Y1.astype('int')
 
 Y1
 
