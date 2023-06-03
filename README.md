@@ -4,5 +4,4 @@ Install Necessary libraries in your virtual environment before using the system.
 
 <img src="https://github.com/sobhanifahim/power-bi-simple-dashboad/blob/main/eeg%20data.JPG" alt="Alt text" title="dash board of data visualization">
 
-A video demonstration
 
