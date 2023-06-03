@@ -6,5 +6,5 @@ Install Necessary libraries in your virtual environment before using the system.
 
 A video demonstration
 <video controls="controls"/>
-   <source src="An Effective Decision Support System For Detecting Mental State Using Brainwave.mp4" type="video/mp4">
+   <source src="https://github.com/sobhanifahim/An-effective-decision-support-system-for-detecting-mental-state/blob/main/An%20Effective%20Decision%20Support%20System%20For%20Detecting%20Mental%20State%20Using%20Brainwave.mp4" type="video/mp4">
 </video>
